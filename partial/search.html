@@ -1,0 +1,46 @@
+<div class="container">
+	<div class="row" ng-repeat="question in questions">
+		<div class="col-md-offset-1 col-md-10" ng-click="view(question)">
+			<div class="row question">
+				<div class="col-md-1 text-center" style="border-right: 1px grey solid;">
+					<div>{{question.score}}</div>
+					<div>Votes</div>
+				</div>
+				<div class="col-md-1 text-center" style="border-right: 1px grey solid;">
+					<div>{{question.answer_count}}</div>
+					<div>Answers</div>
+				</div>
+				<div class="col-md-1 text-center" style="border-right: 1px grey solid;">
+					<div>{{question.view_count}}</div>
+					<div>Views</div>
+				</div>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-12">
+							<div ng-bind-html="question.title | trustHtml"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<span class="label label-default" ng-repeat="tag in question.tags" style="margin-right:10px;">
+								{{tag}}
+							</span>
+						</div>
+						<div class="col-md-offset-1 col-md-3 small">
+							<small>
+								asked {{question.creation_date * 1000 | date:'yyyy-MM-dd'}}
+							</small>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-1">
+					<div class="row">
+						<div class="col-md-12">
+							<i class="fa fa-star-o fa-2x fa-fw"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

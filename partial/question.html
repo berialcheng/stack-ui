@@ -1,0 +1,65 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-2">
+			<div class="affix" data-spy="affix">
+				<div class="row">
+					<span class="col-md-12">
+						Question
+					</span>
+				</div>
+				<div class="row" ng-repeat="answer in answers">
+					<span class="col-md-12">
+						<a ng-href="{{question.link}}#answer-{{answer.answer_id}}" target="_">{{answer.answer_id}}</a> | {{answer.score}} 
+						<span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 ng-bind-html="question.title | trustHtml"></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<span ng-bind-html="question.body | trustHtml"></span>
+				</div>
+			</div>
+			<hr/>
+			<div class="row">
+				<div class="col-md-12">
+					<h5>{{question.answer_count}} answers</h5>
+				</div>
+			</div>
+			<div class="row" ng-repeat="answer in answers">
+				<hr/>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-1">
+							<span class="badge">{{answer.score}}</span>
+						</div>
+						<div class="col-md-2">
+							<span ng-bind-html="answer.owner.display_name | trustHtml"></span>
+						</div>
+						<div class="col-md-2">
+							<small class="text-muted"> Created: {{answer.creation_date * 1000 | date:'yyyy-MM-dd'}}</small>
+						</div>
+						<div class="col-md-2">
+							<small class="text-muted"> Updated: {{answer.last_activity_date * 1000 | date:'yyyy-MM-dd'}}</small>
+						</div>
+						<div class="col-md-offset-3 col-md-2">
+							<span class="gravatar-wrapper-32"><img ng-src="{{answer.owner.profile_image}}"></span>
+						</div>
+					</div>
+					<br/>
+					<div class="row">
+						<div class="col-md-12">
+							<span ng-bind-html="answer.body | trustHtml"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

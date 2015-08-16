@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html ng-app="stackui">
+<head>
+	<title>Stack UI</title>
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+	<!--<script type="text/javascript" src="http://cdn.bootcss.com/angular.js/1.4.3/angular.min.js"></script>-->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-route.min.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+
+	<style type="text/css">
+	body{
+		//padding-top:20px;
+	}
+	.question{
+		border:#CECECE 1px solid;
+		padding-top:8px;
+		padding-bottom:8px;
+		margin-top:5px;
+	}
+	.question:hover{
+		border-color: lightblue;
+		//background-color: lightblue;
+		-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    	box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    	cursor: pointer;
+	}
+	.gravatar-wrapper-32{
+		width: 32px;
+    	height: 32px;
+	}
+	.gravatar-wrapper-32 img {
+	    height: 32px;
+	    margin: 0 auto;
+	}
+	.post-text img, .wmd-preview img {
+    	max-width: 630px;
+    	margin-bottom: 1em;
+	}
+	</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#navbar > .nav:first > li').click(function (e) {
+			        $('#navbar > .nav:first > li').removeClass('active');
+			        $(this).addClass('active');
+			    });
+		})
+	</script>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar navbar-default">
+	        <div class="container-fluid">
+	          <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	              <span class="sr-only">Toggle navigation</span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	              <span class="icon-bar"></span>
+	            </button>
+	            <a class="navbar-brand" href="#">
+	            	<i class="fa fa-stack-overflow fa-fw"></i>
+	            	Stack UI
+	            </a>
+	          </div>
+	          <div id="navbar" class="navbar-collapse collapse">
+	            <ul class="nav navbar-nav">
+	              <li class="active"><a href="#"><i class="fa fa-search fa-fw"></i>Search</a></li>
+	              <li><a href="#/favourite"><i class="fa fa-heart fa-fw"></i>Favorite</a></li>
+	              <li><a href="#about"><i class="fa fa-info-circle fa-fw"></i>About</a></li>
+	            </ul>
+	            <ul class="nav navbar-nav navbar-right">
+	              <li><a href="https://github.com" target="_"><i class="fa fa-github fa-lg"></i></a></li>
+	            </ul>
+	          </div><!--/.nav-collapse -->
+	        </div><!--/.container-fluid -->
+	      </nav>
+	</div>
+
+	<div ng-view></div>
+</body>
+</html>
