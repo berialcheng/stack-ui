@@ -27,4 +27,16 @@
 			</div>
 		</div>
 	</div>
+	<br/>
+	<br/>
+	<br/>
+	<div class="row" ng-if="quota_percent">
+		<div class="col-md-offset-4 col-md-4">
+			<div class="progress">
+			  <div class="progress-bar" role="progressbar" style="width: {{quota_percent}}%;">
+			    {{quota_remaining}} / {{quota_max}}
+			  </div>
+			</div>
+		</div>
+	</div>
 </div>

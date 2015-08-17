@@ -1,6 +1,11 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-2">
+			<!--<ul class="nav" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+				<li ng-repeat="answer in answers">
+					<a href="#{{answer.answer_id}}">{{answer.answer_id}}</a> | {{answer.score}} <span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
+				</li>
+			</ul>-->
 			<div class="affix" data-spy="affix">
 				<div class="row">
 					<span class="col-md-12">
@@ -9,7 +14,7 @@
 				</div>
 				<div class="row" ng-repeat="answer in answers">
 					<span class="col-md-12">
-						<a ng-href="{{question.link}}#answer-{{answer.answer_id}}" target="_">{{answer.answer_id}}</a> | {{answer.score}} 
+						<a ng-href="#/question/{{question.question_id}}/{{answer.answer_id}}" target="_">{{answer.answer_id}}</a> | {{answer.score}} 
 						<span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
 					</span>
 				</div>
@@ -34,13 +39,12 @@
 			</div>
 			<div class="row" ng-repeat="answer in answers">
 				<hr/>
-				<div class="col-md-12">
+				<div class="col-md-12" id="#/question/{{question.question_id}}/{{answer.answer_id}}"
 					<div class="row">
 						<div class="col-md-1">
 							<span class="badge">{{answer.score}}</span>
 						</div>
 						<div class="col-md-2">
-							<span ng-bind-html="answer.owner.display_name | trustHtml"></span>
 						</div>
 						<div class="col-md-2">
 							<small class="text-muted"> Created: {{answer.creation_date * 1000 | date:'yyyy-MM-dd'}}</small>
@@ -49,7 +53,8 @@
 							<small class="text-muted"> Updated: {{answer.last_activity_date * 1000 | date:'yyyy-MM-dd'}}</small>
 						</div>
 						<div class="col-md-offset-3 col-md-2">
-							<span class="gravatar-wrapper-32"><img ng-src="{{answer.owner.profile_image}}"></span>
+							<!-- <span class="gravatar-wrapper-32"><img ng-src="{{answer.owner.profile_image}}"></span> -->
+							<span ng-bind-html="answer.owner.display_name | trustHtml"></span>
 						</div>
 					</div>
 					<br/>

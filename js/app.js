@@ -13,6 +13,10 @@ angular.module('stackui', ['ngRoute'])
 			templateUrl: 'partial/question.html',
 			controller: 'QuestionCtrl'
 		}).
+		when('/question/:question_id/:answer_id', {
+			templateUrl: 'partial/question.html',
+			controller: 'QuestionCtrl'
+		}).
 		when('/favourite',{
 			templateUrl: 'partial/favourite.html'
 		}).
@@ -29,6 +33,15 @@ angular.module('stackui', ['ngRoute'])
         }
  })
 .controller('HomeCtrl',function($scope, $location) {
+
+	var quota_remaining = localStorage.getItem("quota_remaining");
+	var quota_max = localStorage.getItem("quota_max");
+	if(quota_remaining && quota_max){
+		$scope.quota_remaining = quota_remaining;
+		$scope.quota_max = quota_max;
+		$scope.quota_percent = quota_remaining / quota_max * 100 ;
+	}
+
 	$scope.$watch('query', function(argument) {
 		//console.log($scope.query);
 	})
@@ -73,6 +86,9 @@ angular.module('stackui', ['ngRoute'])
 
 		localStorage.setItem($routeParams.q,JSON.stringify($scope.questions))
 		$scope.$digest();
+
+		localStorage.setItem("quota_remaining", response.quota_remaining);
+		localStorage.setItem("quota_max", response.quota_max);
 	});
 })
 .controller('QuestionCtrl', function($scope, $routeParams){
