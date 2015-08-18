@@ -1,4 +1,4 @@
-angular.module('stackui', ['ngRoute'])
+angular.module('stackui', ['ngRoute','ngSanitize'])
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.
 		when('/', {
@@ -31,6 +31,33 @@ angular.module('stackui', ['ngRoute'])
             return $sce.trustAsHtml(input);
         }
  })
+.provider('markdownConverter', function () {
+  var opts = {};
+  return {
+    config: function (newOpts) {
+      opts = newOpts;
+    },
+    $get: function () {
+      return new showdown.Converter(opts);
+    }
+  };
+})
+.directive('markdown', ['$sanitize', 'markdownConverter', function ($sanitize, markdownConverter) {
+  return {
+    restrict: 'AE',
+    link: function (scope, element, attrs) {
+      if (attrs.markdown) {
+        scope.$watch(attrs.markdown, function (newVal) {
+          var html = newVal ? $sanitize(markdownConverter.makeHtml(newVal)) : '';
+          element.html(html);
+        });
+      } else {
+        var html = $sanitize(markdownConverter.makeHtml(element.text()));
+        element.html(html);
+      }
+    }
+  };
+}])
 .controller('HomeCtrl',function($scope, $location) {
 
 	var quota_remaining = localStorage.getItem("quota_remaining");
