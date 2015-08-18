@@ -13,10 +13,6 @@ angular.module('stackui', ['ngRoute'])
 			templateUrl: 'partial/question.html',
 			controller: 'QuestionCtrl'
 		}).
-		when('/question/:question_id/:answer_id', {
-			templateUrl: 'partial/question.html',
-			controller: 'QuestionCtrl'
-		}).
 		when('/history',{
 			templateUrl: 'partial/history.html'
 		}).
@@ -30,13 +26,6 @@ angular.module('stackui', ['ngRoute'])
 			redirectTo: '/'
 		});
 }])
-// .run(function($rootScope, $location, $anchorScroll, $routeParams) {
-//   //when the route is changed scroll to the proper element.
-//   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-//     $location.hash($routeParams.scrollTo);
-//     $anchorScroll();  
-//   });
-// })
 .filter('trustHtml', function ($sce) {
         return function (input) {
             return $sce.trustAsHtml(input);
@@ -52,12 +41,7 @@ angular.module('stackui', ['ngRoute'])
 		$scope.quota_percent = quota_remaining / quota_max * 100 ;
 	}
 
-	$scope.$watch('query', function(argument) {
-		//console.log($scope.query);
-	})
-
 	$scope.search = function() {
-		console.log($scope.query)
 		$location.path("/search").search('q', $scope.query);
 	}
 })
@@ -69,7 +53,6 @@ angular.module('stackui', ['ngRoute'])
 
 	if(localStorage.getItem($routeParams.q)){
 		$scope.questions = JSON.parse(localStorage.getItem($routeParams.q));
-		//$scope.$digest();
 		return
 	}
 
@@ -132,7 +115,7 @@ angular.module('stackui', ['ngRoute'])
 		}
 	}).done(function (response) {
 		$scope.question = response.items[0];
-		console.log($scope.question);
+		console.log("question", $scope.question);
 		$scope.$digest();
 	});
 
@@ -151,8 +134,8 @@ angular.module('stackui', ['ngRoute'])
 			//"content-type": "application/json"
 		}
 	}).done(function (response) {
-		console.log(response);
 		$scope.answers = response.items;
+		console.log("answers", $scope.answers);
 		$scope.$digest();
 	});
 });
