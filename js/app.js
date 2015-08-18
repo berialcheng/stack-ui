@@ -16,8 +16,9 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 		when('/history',{
 			templateUrl: 'partial/history.html'
 		}).
-		when('/favourite',{
-			templateUrl: 'partial/favourite.html'
+		when('/bookmark',{
+			templateUrl: 'partial/bookmark.html',
+			controller: 'BookmarkCtrl'
 		}).
 		when('/about', {
 			templateUrl: 'partial/about.html'
@@ -58,6 +59,53 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
     }
   };
 }])
+.factory('bookmark', function() {
+	var service = {};
+	service.exists = function(question) {
+		if(!localStorage.getItem("favourite")){
+			localStorage.setItem("favourite", JSON.stringify([]));
+		}
+		var favoutites = JSON.parse(localStorage.getItem("favourite"));
+		var ret = favoutites.filter(function(item){if(item.question_id == question.question_id){return item}});
+		if(ret.length > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	service.addBookmark = function(question, $event) {
+		if(!localStorage.getItem("favourite")){
+			localStorage.setItem("favourite", JSON.stringify([]));
+		}
+		var favoutites = JSON.parse(localStorage.getItem("favourite"));
+		favoutites.push(question);
+		localStorage.setItem("favourite", JSON.stringify(favoutites));
+
+		$event.stopPropagation();
+	}
+
+	service.removeBookmark = function(question, $event) {
+		if(!localStorage.getItem("favourite")){
+			localStorage.setItem("favourite", JSON.stringify([]));
+		}
+		var favoutites = JSON.parse(localStorage.getItem("favourite"));
+		var ret = favoutites.filter(function(item){if(item.question_id != question.question_id){return item}});
+		favoutites = ret;
+		localStorage.setItem("favourite", JSON.stringify(favoutites));
+
+		$event.stopPropagation();
+	}
+
+	service.getBookmarks = function() {
+		if(!localStorage.getItem("favourite")){
+			localStorage.setItem("favourite", JSON.stringify([]));
+		}
+		return JSON.parse(localStorage.getItem("favourite"));
+	}
+
+	return service;
+})
 .controller('HomeCtrl',function($scope, $location) {
 
 	var quota_remaining = localStorage.getItem("quota_remaining");
@@ -72,11 +120,15 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 		$location.path("/search").search('q', $scope.query);
 	}
 })
-.controller('QueryCtrl', function($scope, $location, $routeParams) {
+.controller('QueryCtrl', function($scope, $location, $routeParams, bookmark) {
 	console.log($routeParams)
 	$scope.view = function(question){
 		$location.path("/question/" + question.question_id);
 	}
+
+	$scope.isFavourite = bookmark.exists;
+	$scope.addToFavourite = bookmark.addBookmark;
+	$scope.removeFromFavourite = bookmark.removeBookmark;
 
 	if(localStorage.getItem($routeParams.q)){
 		$scope.questions = JSON.parse(localStorage.getItem($routeParams.q));
@@ -165,4 +217,15 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 		console.log("answers", $scope.answers);
 		$scope.$digest();
 	});
+})
+.controller('BookmarkCtrl', function($scope, $location, $routeParams, bookmark) {
+	$scope.view = function(question){
+		$location.path("/question/" + question.question_id);
+	}
+
+	$scope.isFavourite = bookmark.exists;
+	$scope.addToFavourite = bookmark.addBookmark;
+	$scope.removeFromFavourite = bookmark.removeBookmark;
+
+	$scope.questions = bookmark.getBookmarks();
 });
