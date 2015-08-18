@@ -2,24 +2,11 @@
 	<div class="row">
 		<div class="col-md-2 scrollspy">
 			<ul id="nav" class="nav hidden-xs hidden-s" data-spy="affix">
-				<li><a data-target="#{{question.question_id}}" ng-click="gotoAnchor(answer.answer_id)">Question</a></li>
+				<li><a data-target="#{{question.question_id}}" ng-click="gotoAnchor(question.question_id)">Question</a></li>
 				<li ng-repeat="answer in answers">
 					<a data-target="#{{answer.answer_id}}" ng-click="gotoAnchor(answer.answer_id)">{{answer.answer_id}} | {{answer.score}} <span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span></a> 
 				</li>
 			</ul>
-			<!--<div class="affix" data-spy="affix">
-				<div class="row">
-					<span class="col-md-12">
-						Question
-					</span>
-				</div>
-				<div class="row" ng-repeat="answer in answers">
-					<span class="col-md-12">
-						<button ng-click="gotoAnchor(answer.answer_id)">{{answer.answer_id}}</button> | {{answer.score}} 
-						<span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
-					</span>
-				</div>
-			</div>-->
 		</div>
 		<div class="col-md-10">
 			<div class="row" id="{{question.question_id}}">
