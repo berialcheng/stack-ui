@@ -14,7 +14,7 @@
 
 	<style type="text/css">
 	body{
-		//padding-top:20px;
+		position: relative;
 	}
 	.question{
 		border:#CECECE 1px solid;
@@ -41,17 +41,37 @@
     	max-width: 630px;
     	margin-bottom: 1em;
 	}
+	.scrollspy .nav{
+		cursor: pointer;
+	}
+	.scrollspy > .nav > li > a{
+		padding: 5px 15px;
+	}
+	.scrollspy .nav .active {
+	    font-weight: bold;
+	    background: #72bcd4;
+	}
+	.scrollspy .nav .nav {
+	    display: none;
+	}
+	.scrollspy .nav .active .nav {
+	    display: block;
+	}
+	.scrollspy .nav .nav a {
+	    font-weight: normal;
+	    font-size: .85em;
+	}
 	</style>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#navbar > .nav:first > li').click(function (e) {
-			        $('#navbar > .nav:first > li').removeClass('active');
-			        $(this).addClass('active');
-			    });
+		        $('#navbar > .nav:first > li').removeClass('active');
+		        $(this).addClass('active');
+		    });
 		})
 	</script>
 </head>
-<body>
+<body data-spy="scroll" data-target=".scrollspy">
 	<div class="container">
 		<nav class="navbar navbar-default">
 	        <div class="container-fluid">
@@ -70,11 +90,12 @@
 	          <div id="navbar" class="navbar-collapse collapse">
 	            <ul class="nav navbar-nav">
 	              <li class="active"><a href="#"><i class="fa fa-search fa-fw"></i>Search</a></li>
+	              <li><a href="#history"><i class="fa fa-history fa-fw"></i>History</a></li>
 	              <li><a href="#favourite"><i class="fa fa-heart fa-fw"></i>Favorite</a></li>
 	              <li><a href="#about"><i class="fa fa-info-circle fa-fw"></i>About</a></li>
 	            </ul>
 	            <ul class="nav navbar-nav navbar-right">
-	              <li><a href="https://github.com" target="_"><i class="fa fa-github fa-lg"></i></a></li>
+	              <li><a href="https://github.com/berialcheng/stack-ui" target="_"><i class="fa fa-github fa-lg"></i></a></li>
 	            </ul>
 	          </div><!--/.nav-collapse -->
 	        </div><!--/.container-fluid -->

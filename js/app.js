@@ -17,6 +17,9 @@ angular.module('stackui', ['ngRoute'])
 			templateUrl: 'partial/question.html',
 			controller: 'QuestionCtrl'
 		}).
+		when('/history',{
+			templateUrl: 'partial/history.html'
+		}).
 		when('/favourite',{
 			templateUrl: 'partial/favourite.html'
 		}).
@@ -27,6 +30,13 @@ angular.module('stackui', ['ngRoute'])
 			redirectTo: '/'
 		});
 }])
+// .run(function($rootScope, $location, $anchorScroll, $routeParams) {
+//   //when the route is changed scroll to the proper element.
+//   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+//     $location.hash($routeParams.scrollTo);
+//     $anchorScroll();  
+//   });
+// })
 .filter('trustHtml', function ($sce) {
         return function (input) {
             return $sce.trustAsHtml(input);
@@ -91,7 +101,21 @@ angular.module('stackui', ['ngRoute'])
 		localStorage.setItem("quota_max", response.quota_max);
 	});
 })
-.controller('QuestionCtrl', function($scope, $routeParams){
+.controller('QuestionCtrl', function($scope, $routeParams, $location, $anchorScroll){
+	$scope.gotoAnchor = function(hash,$event) {
+		var old = $location.hash();
+		$location.hash(hash);
+		$anchorScroll();
+		//reset to old to keep any additional routing logic from kicking in
+		$location.hash(old);
+	}
+
+	$('#nav').affix({
+	    offset: {
+	        top: $('#nav').offset().top
+	    }
+	});
+
 	$.ajax({
 		"async": true,
 		//"crossDomain": true,

@@ -1,12 +1,13 @@
-<div class="container">
+<div class="container" data-spy="scroll" data-target=".scrollspy">
 	<div class="row">
-		<div class="col-md-2">
-			<!--<ul class="nav" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+		<div class="col-md-2 scrollspy">
+			<ul id="nav" class="nav hidden-xs hidden-s" data-spy="affix">
+				<li><a data-target="#{{question.question_id}}" ng-click="gotoAnchor(answer.answer_id)">Question</a></li>
 				<li ng-repeat="answer in answers">
-					<a href="#{{answer.answer_id}}">{{answer.answer_id}}</a> | {{answer.score}} <span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
+					<a data-target="#{{answer.answer_id}}" ng-click="gotoAnchor(answer.answer_id)">{{answer.answer_id}} | {{answer.score}} <span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span></a> 
 				</li>
-			</ul>-->
-			<div class="affix" data-spy="affix">
+			</ul>
+			<!--<div class="affix" data-spy="affix">
 				<div class="row">
 					<span class="col-md-12">
 						Question
@@ -14,14 +15,14 @@
 				</div>
 				<div class="row" ng-repeat="answer in answers">
 					<span class="col-md-12">
-						<a ng-href="#/question/{{question.question_id}}/{{answer.answer_id}}" target="_">{{answer.answer_id}}</a> | {{answer.score}} 
+						<button ng-click="gotoAnchor(answer.answer_id)">{{answer.answer_id}}</button> | {{answer.score}} 
 						<span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span>
 					</span>
 				</div>
-			</div>
+			</div>-->
 		</div>
 		<div class="col-md-10">
-			<div class="row">
+			<div class="row" id="{{question.question_id}}">
 				<div class="col-md-12">
 					<h3 ng-bind-html="question.title | trustHtml"></h3>
 				</div>
@@ -39,7 +40,7 @@
 			</div>
 			<div class="row" ng-repeat="answer in answers">
 				<hr/>
-				<div class="col-md-12" id="#/question/{{question.question_id}}/{{answer.answer_id}}"
+				<div class="col-md-12" id="{{answer.answer_id}}"
 					<div class="row">
 						<div class="col-md-1">
 							<span class="badge">{{answer.score}}</span>
