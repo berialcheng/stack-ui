@@ -106,7 +106,7 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 
 	return service;
 })
-.controller('HomeCtrl',function($scope, $location) {
+.controller('HomeCtrl',function($scope, $location, bookmark) {
 
 	var quota_remaining = localStorage.getItem("quota_remaining");
 	var quota_max = localStorage.getItem("quota_max");
@@ -116,8 +116,48 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 		$scope.quota_percent = quota_remaining / quota_max * 100 ;
 	}
 
+	$scope.view = function(question){
+		$location.path("/question/" + question.question_id);
+	}
+
+	$scope.isFavourite = bookmark.exists;
+	$scope.addToFavourite = bookmark.addBookmark;
+	$scope.removeFromFavourite = bookmark.removeBookmark;
+
 	$scope.search = function() {
-		$location.path("/search").search('q', $scope.query);
+		//$location.path("/search").search('q', $scope.query);
+		if(localStorage.getItem($scope.query)){
+			$scope.questions = JSON.parse(localStorage.getItem($scope.query));
+			return
+		}
+
+		$.ajax({
+			"async": true,
+			//"crossDomain": true,
+			"url": "https://api.stackexchange.com/2.2/search/advanced",
+			"method": "GET",
+			"data":{
+				page : 1,
+				pagesize : 8,
+				order: "desc",
+				sort: "relevance",
+				q : $scope.query,
+				site : "stackoverflow",
+				filter : "withbody"
+			},
+			"headers": {
+				//"content-type": "application/json"
+			}
+		}).done(function (response) {
+			console.log(response)
+			$scope.questions = response.items;
+
+			localStorage.setItem($scope.query,JSON.stringify($scope.questions))
+			$scope.$digest();
+
+			localStorage.setItem("quota_remaining", response.quota_remaining);
+			localStorage.setItem("quota_max", response.quota_max);
+		});
 	}
 })
 .controller('QueryCtrl', function($scope, $location, $routeParams, bookmark) {
@@ -172,11 +212,11 @@ angular.module('stackui', ['ngRoute','ngSanitize'])
 		$location.hash(old);
 	}
 
-	$('#nav').affix({
-	    offset: {
-	        top: $('#nav').offset().top
-	    }
-	});
+	// $('#nav').affix({
+	//     offset: {
+	//         top: $('#nav').offset().top
+	//     }
+	// });
 
 	$.ajax({
 		"async": true,

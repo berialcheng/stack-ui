@@ -1,5 +1,17 @@
 <div class="container">
-	<div class="row" ng-repeat="question in questions">
+	<div class="row" ng-if="questions.length == 0">
+		<div class="col-md-offset-1 col-md-10">
+			<div class="text-center">
+				<div>
+					<i class="fa fa-info-circle fa-4x"></i>
+				</div>
+				<h3>
+					No results matched your search.
+				</h3>
+			</div>
+		</div>
+	</div>
+	<div class="row" ng-if="questions.length != 0" ng-repeat="question in questions">
 		<div class="col-md-offset-1 col-md-10" ng-click="view(question)">
 			<div class="row question">
 				<div class="col-md-1 text-center" style="border-right: 1px grey solid;">

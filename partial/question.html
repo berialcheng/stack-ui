@@ -1,11 +1,16 @@
 <div class="container" data-spy="scroll" data-target=".scrollspy">
 	<div class="row">
 		<div class="col-md-2 scrollspy">
-			<ul id="nav" class="nav hidden-xs hidden-s" data-spy="affix">
+			<ul id="nav" class="nav hidden-xs hidden-s affix" data-spy="affix">
 				<li><a data-target="#{{question.question_id}}" ng-click="gotoAnchor(question.question_id)">Question</a></li>
 				<li ng-repeat="answer in answers">
 					<a data-target="#{{answer.answer_id}}" ng-click="gotoAnchor(answer.answer_id)">{{answer.answer_id}} | {{answer.score}} <span ng-if="answer.is_accepted"><i class="fa fa-check fa-fw"></i></span></a> 
 				</li>
+				<!--<li>
+					<a class="text-center">
+						<i class="fa fa-arrow-circle-up fa-fw"></i>
+					</a>
+				</li>-->
 			</ul>
 		</div>
 		<div class="col-md-10">
