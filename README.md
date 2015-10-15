@@ -1,6 +1,6 @@
 ## Stack UI
 > Stack UI is a tool build for basic search functionality upon the stackoverflow.com site.
-> It is not intent to replace the office ui, but could used for handle some awkward situation in China.
+> It is not intent to replace the official site, but could used for handle some awkward situation in China.
 
 It relay on the Stackoverflow's RESTful API to do the advance search work, so it is limited by the requests quota. Although for routine purpose query, it should be sufficient.
 
