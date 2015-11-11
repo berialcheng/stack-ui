@@ -1,0 +1,22 @@
+{
+  "name": "stack-ui",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berialcheng/stack-ui.git"
+  },
+  "author": "Cheng Zhong <berialcheng@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berialcheng/stack-ui/issues"
+  },
+  "homepage": "https://github.com/berialcheng/stack-ui#readme",
+  "scripts": {
+    "start": "http-server -a localhost -p 8000 -c-1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "http-server": "^0.8.5"
+  }
+}
